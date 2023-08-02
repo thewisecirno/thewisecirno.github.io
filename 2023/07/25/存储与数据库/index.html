@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>算法板子 | Cirno's Blog</title><meta name="author" content="TheWiseCirno"><meta name="copyright" content="TheWiseCirno"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="来源于知乎 系统存储01 块存储1.1 概述块存储是将裸磁盘空间整个映射给主机使用的，比如磁阵中有3块1T硬盘，可以选择直接将裸设备给操作系统使用（此时识别出3个1T的硬盘），也可以划分经过RAID、逻辑卷等方式划分出多个逻辑的磁盘供系统使用（比如划分为6个500G的磁盘），主机层面操作系统识别出硬盘，但是操作系统无法区分这些映射上来的磁盘到底是真正的物理磁盘还是二次划分的逻辑磁盘，操作系统接着对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法板子">
+<meta property="og:url" content="http://cirnoblog.cn/2023/07/25/%E5%AD%98%E5%82%A8%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="Cirno&#39;s Blog">
+<meta property="og:description" content="来源于知乎 系统存储01 块存储1.1 概述块存储是将裸磁盘空间整个映射给主机使用的，比如磁阵中有3块1T硬盘，可以选择直接将裸设备给操作系统使用（此时识别出3个1T的硬盘），也可以划分经过RAID、逻辑卷等方式划分出多个逻辑的磁盘供系统使用（比如划分为6个500G的磁盘），主机层面操作系统识别出硬盘，但是操作系统无法区分这些映射上来的磁盘到底是真正的物理磁盘还是二次划分的逻辑磁盘，操作系统接着对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cirnoblog.cn/img/avatar.jpg">
+<meta property="article:published_time" content="2023-07-25T12:47:47.856Z">
+<meta property="article:modified_time" content="2023-07-25T15:52:06.767Z">
+<meta property="article:author" content="TheWiseCirno">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cirnoblog.cn/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://cirnoblog.cn/2023/07/25/%E5%AD%98%E5%82%A8%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '算法板子',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-25 23:52:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Cirno's Blog"><span class="site-name">Cirno's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">算法板子</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-25T12:47:47.856Z" title="发表于 2023-07-25 20:47:47">2023-07-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-25T15:52:06.767Z" title="更新于 2023-07-25 23:52:06">2023-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ACM%E7%AE%97%E6%B3%95/">ACM算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="算法板子"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>来源于知乎</p>
+<h1 id="系统存储"><a href="#系统存储" class="headerlink" title="系统存储"></a>系统存储</h1><h2 id="01-块存储"><a href="#01-块存储" class="headerlink" title="01 块存储"></a><strong>01 块存储</strong></h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a><strong>1.1 概述</strong></h3><p>块存储是将裸磁盘空间整个映射给主机使用的，比如磁阵中有3块1T硬盘，可以选择直接将裸设备给操作系统使用（此时识别出3个1T的硬盘），也可以划分经过RAID、逻辑卷等方式划分出多个逻辑的磁盘供系统使用（比如划分为6个500G的磁盘），主机层面操作系统识别出硬盘，但是操作系统无法区分这些映射上来的磁盘到底是真正的物理磁盘还是二次划分的逻辑磁盘，操作系统接着对磁盘进行分区、格式化，与我们服务器内置的硬盘没有什么差异。</p>
+<p>块存储不仅仅是直接使用物理设备，间接使用物理设备的也叫块设备，比如虚机创建虚拟磁盘。VMware、VirtualBox都可以创建虚拟磁盘，虚机创建的磁盘格式包括raw、qcow2等，这与主机使用的裸设备不一样，且有不同的应用场景。</p>
+<h3 id="1-2-特点"><a href="#1-2-特点" class="headerlink" title="1.2 特点"></a><strong>1.2 特点</strong></h3><p><strong>优点</strong></p>
+<p>1、通过RAID与LVM等手段，对数据提供了保护（RAID可实现磁盘的备份和校验，LVM可以做快照）；</p>
+<p>2、RAID将多块廉价的硬盘组合起来，构建大容量的逻辑盘对外提供服务，性价比高；</p>
+<p>3、写数据时，由于是多块磁盘组合成的逻辑盘，可以并行写入，提升了读写效率；</p>
+<p>4、很多时候块存储采用SAN架构组网，传输速率以及封装协议的原因，使得传输速度与读写速率得到提升。</p>
+<p><strong>缺点</strong></p>
+<p>1、采用SAN架构组网时，需要额外为主机购买光纤通道卡，还要买光纤交换机，造价成本高；</p>
+<p>2、不利于不同操作系统主机间的数据共享，因为操作系统使用不同的文件系统，格式化完成后，不同文件系统间的数据是无法共享的。</p>
+<h3 id="1-3-典型设备"><a href="#1-3-典型设备" class="headerlink" title="1.3 典型设备"></a><strong>1.3 典型设备</strong></h3><p>磁盘，磁盘阵列</p>
+<h3 id="1-4-应用场景"><a href="#1-4-应用场景" class="headerlink" title="1.4 应用场景"></a><strong>1.4 应用场景</strong></h3><p>一般用于主机的直接存储空间和数据库应用的存储分两种形式：</p>
+<p>DAS：一台服务器一个存储，多机无法直接共享，需要借助操作系统的功能，如共享文件夹；</p>
+<p>SAN：金融电信级别，成本较高，但是可提供高性能和高可靠服务。</p>
+<p>云存储的块存储：具备SAN的优势，成本低，可提供弹性拓容，存储介质可选普通硬盘和SSD。</p>
+<h3 id="1-5-主流技术"><a href="#1-5-主流技术" class="headerlink" title="1.5 主流技术"></a><strong>1.5 主流技术</strong></h3><p>Microsoft：Azure Block Storage</p>
+<p>Google：Google Block Storage</p>
+<p>Amazon：Elastic Block Storag（EBS）</p>
+<p>OpenStack：Cinder</p>
+<p>其他：Ceph RBD、sheepdog</p>
+<h2 id="02-文件存储"><a href="#02-文件存储" class="headerlink" title="02 文件存储"></a><strong>02 文件存储</strong></h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a><strong>2.1 概述</strong></h3><p>为了克服块存储无法共享的问题，所以就有了文件存储。</p>
+<p>文件存储也有软硬一体化的设备，用一台普通服务器&#x2F;笔记本，只要安装上合适的操作系统与软件，就可以对外提供FTP与NFS服务。</p>
+<h3 id="2-2-特点"><a href="#2-2-特点" class="headerlink" title="2.2 特点"></a><strong>2.2 特点</strong></h3><p><strong>优点</strong></p>
+<p>1、造价较低：只需要普通机器和普通网络即可满足需求，不需要专用的SAN网络；</p>
+<p>2、方便文件共享。</p>
+<p><strong>缺点</strong></p>
+<p>1、读写速率低，传输速率慢：以太网，上传下载速度较慢，另外读写操作都分布到单台服务器，与磁阵的并行写相比性能差距较大。</p>
+<h3 id="2-3-典型设备"><a href="#2-3-典型设备" class="headerlink" title="2.3 典型设备"></a><strong>2.3 典型设备</strong></h3><p>FTP、NFS服务器</p>
+<h3 id="2-4-应用场景"><a href="#2-4-应用场景" class="headerlink" title="2.4 应用场景"></a><strong>2.4 应用场景</strong></h3><p>与偏向底层的块存储不同，文件存储上升到了应用层，一般指的是NAS。</p>
+<p>一套网络存储设备，通过TCP&#x2F;IP进行访问，协议为NFSv3&#x2F;v4由于通过网络，且采用上层协议，因此开销大，延时肯定比块存储高，一般用于多个云服务器共享数据，如存放共享文件等。</p>
+<h3 id="2-5-主流技术"><a href="#2-5-主流技术" class="headerlink" title="2.5 主流技术"></a><strong>2.5 主流技术</strong></h3><p>Microsoft；Windows Azure文件共享存储</p>
+<p>Google：Google FileStorage（GFS）</p>
+<p>Amazon：Elastic File Storage(EFS)</p>
+<p>OpenStack：Swift</p>
+<p>其他：CephFS、HDFS、NFS、CIFS、Samba、FTP</p>
+<h2 id="03-对象存储"><a href="#03-对象存储" class="headerlink" title="03 对象存储"></a><strong>03 对象存储</strong></h2><h3 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a><strong>3.1 概述</strong></h3><p>之所以出现对象存储，是为了克服块存储与文件存储的缺点，发扬他俩各自的优点。简单地说，块存储读写块，不利于共享，文件存储读写慢，利于共享。</p>
+<p><strong>为什么对象存储兼具块存储与文件存储的好处，还要使用块存储或文件存储呢？</strong></p>
+<p>1、有一类应用是需要存储直接裸盘映射的，例如数据库。因为数据库需要存储裸盘映射给自己后，再根据自己的数据库文件系统来对裸盘进行格式化，所以是不能够采用其他已经被格式化为某种文件系统的存储的。数据库更适合使用块存储。</p>
+<p>2、对象存储的成本比普通的文件存储高，需要购买专门的对象存储软件以及大容量硬盘。</p>
+<h3 id="3-2-特点"><a href="#3-2-特点" class="headerlink" title="3.2 特点"></a><strong>3.2 特点</strong></h3><p><strong>优点</strong></p>
+<p>1、结合了块存储与文件存储的优点。</p>
+<p><strong>缺点</strong></p>
+<p>1、数据库等追求高性能的应用更适合采用块存储。</p>
+<p>2、对象存储的成本比普通的文件存储还是较高。</p>
+<h3 id="3-3-典型设备"><a href="#3-3-典型设备" class="headerlink" title="3.3 典型设备"></a><strong>3.3 典型设备</strong></h3><p>内置大容量硬盘的分布式服务器</p>
+<h3 id="3-4-应用场景"><a href="#3-4-应用场景" class="headerlink" title="3.4 应用场景"></a><strong>3.4 应用场景</strong></h3><p>对象具备块存储的高速以及文件存储的共享等特性，有自己的CPU、内存、网络和磁盘，比块存储和文件存储更上层。云服务商一般提供用户文件上传下载读取的REST API，方便应用集成此类服务。</p>
+<h3 id="3-5-主流技术"><a href="#3-5-主流技术" class="headerlink" title="3.5 主流技术"></a><strong>3.5 主流技术</strong></h3><p>Microsoft：Azure Storage</p>
+<p>Google：Google Cloud Storage</p>
+<p>Amazon：Simple Storage Service（S3）</p>
+<p>OpenStack：Swift</p>
+<p>其他：Ceph OSD</p>
+<h2 id="04-对比"><a href="#04-对比" class="headerlink" title="04 对比"></a><strong>04 对比</strong></h2><h3 id="4-1-块存储-vs-文件存储"><a href="#4-1-块存储-vs-文件存储" class="headerlink" title="4.1 块存储 vs 文件存储"></a><strong>4.1 块存储 vs 文件存储</strong></h3><p>物理块与文件系统之间的关系图：映射关系：扇区-&gt;物理块-&gt;逻辑块-&gt;文件系统</p>
+<p>块级备份：块级备份是指物理块复制，效率高，实时性强，备份时间短，且增量备份时，只备份修改过的物理块。</p>
+<p>文件级备份：文件级备份是指在指定某些文件进行备份时，首先会查找每个文件逻辑块，其次物理块，由于逻辑块是分散在物理块上，而物理块也是分散在不同扇区上。需要一层一层往下查找，最后才完成整个文件复制。文件级备份比较费时间，效率不高，实时性不强，备份时间长，且增量备份时，单文件某一小部分修改，不会只备份修改部分，而是整个文件都备份。</p>
+<h3 id="4-2-文件存储-vs-对象存储"><a href="#4-2-文件存储-vs-对象存储" class="headerlink" title="4.2 文件存储 vs 对象存储"></a><strong>4.2 文件存储 vs 对象存储</strong></h3><p><strong>对象存储：</strong></p>
+<p>1、大多数对象存储的实现本质是键值对存储系统；</p>
+<p>2、采用扁平化的管理方式（根据键找到值）；</p>
+<p>3、值可以是任何东西，可以是小文件（小二进制片段），可以是大文件；</p>
+<p>4、对象存储一般不支持追加写和更新，面向的是一次写入，多次读取的需求场景；</p>
+<p>5、多采用Restful API。</p>
+<p><strong>文件存储：</strong></p>
+<p>1、不考虑底层到底是怎么实现的；</p>
+<p>2、采用目录结构管理数据；</p>
+<p>3、一般要尽可能兼容Posix文件系统API。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://cirnoblog.cn">TheWiseCirno</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://cirnoblog.cn/2023/07/25/%E5%AD%98%E5%82%A8%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">http://cirnoblog.cn/2023/07/25/%E5%AD%98%E5%82%A8%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://cirnoblog.cn" target="_blank">Cirno's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A6%82%E8%BF%B0/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2023/07/03/MySQL/" title="MySQL"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MySQL</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">TheWiseCirno</div><div class="author-info__description">你说得对，但是...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/thewisecirno" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%AD%98%E5%82%A8"><span class="toc-number">1.</span> <span class="toc-text">系统存储</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#01-%E5%9D%97%E5%AD%98%E5%82%A8"><span class="toc-number">1.1.</span> <span class="toc-text">01 块存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%85%B8%E5%9E%8B%E8%AE%BE%E5%A4%87"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 典型设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4 应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E4%B8%BB%E6%B5%81%E6%8A%80%E6%9C%AF"><span class="toc-number">1.1.5.</span> <span class="toc-text">1.5 主流技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8"><span class="toc-number">1.2.</span> <span class="toc-text">02 文件存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%85%B8%E5%9E%8B%E8%AE%BE%E5%A4%87"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 典型设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E4%B8%BB%E6%B5%81%E6%8A%80%E6%9C%AF"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5 主流技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8"><span class="toc-number">1.3.</span> <span class="toc-text">03 对象存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%89%B9%E7%82%B9"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%85%B8%E5%9E%8B%E8%AE%BE%E5%A4%87"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 典型设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E4%B8%BB%E6%B5%81%E6%8A%80%E6%9C%AF"><span class="toc-number">1.3.5.</span> <span class="toc-text">3.5 主流技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#04-%E5%AF%B9%E6%AF%94"><span class="toc-number">1.4.</span> <span class="toc-text">04 对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%9D%97%E5%AD%98%E5%82%A8-vs-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 块存储 vs 文件存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8-vs-%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 文件存储 vs 对象存储</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/02/JWT/" title="无题">无题</a><time datetime="2023-08-02T07:32:03.834Z" title="发表于 2023-08-02 15:32:03">2023-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/01/gRPC/" title="无题">无题</a><time datetime="2023-08-01T14:56:37.092Z" title="发表于 2023-08-01 22:56:37">2023-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/01/%E7%BD%91%E5%85%B3/" title="无题">无题</a><time datetime="2023-08-01T14:19:00.495Z" title="发表于 2023-08-01 22:19:00">2023-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/01/HTTP/" title="无题">无题</a><time datetime="2023-08-01T07:46:12.503Z" title="发表于 2023-08-01 15:46:12">2023-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/30/RPC/" title="无题">无题</a><time datetime="2023-07-30T06:58:01.165Z" title="发表于 2023-07-30 14:58:01">2023-07-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By TheWiseCirno</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

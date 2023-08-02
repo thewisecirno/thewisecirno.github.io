@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Cirno's Blog | Cirno's Blog</title><meta name="author" content="TheWiseCirno"><meta name="copyright" content="TheWiseCirno"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是JWT JSON Web Token (JWT)是一个开放标准(RFC 7519) ，它定义了一种紧凑和自包含的方式，**用于作为 JSON 对象在各方之间安全地传输信息**。此信息可以进行验证和信任，因为它是经过数字签名的。JWT 可以使用机密(使用 HMAC 算法)或使用 RSA 或 ECDSA 的公钥&#x2F;私钥对进行签名。虽然可以对 JWT 进行加密，以便在各方之间提供保密性，但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cirno&#39;s Blog">
+<meta property="og:url" content="http://cirnoblog.cn/2023/08/02/JWT/index.html">
+<meta property="og:site_name" content="Cirno&#39;s Blog">
+<meta property="og:description" content="什么是JWT JSON Web Token (JWT)是一个开放标准(RFC 7519) ，它定义了一种紧凑和自包含的方式，**用于作为 JSON 对象在各方之间安全地传输信息**。此信息可以进行验证和信任，因为它是经过数字签名的。JWT 可以使用机密(使用 HMAC 算法)或使用 RSA 或 ECDSA 的公钥&#x2F;私钥对进行签名。虽然可以对 JWT 进行加密，以便在各方之间提供保密性，但">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cirnoblog.cn/img/avatar.jpg">
+<meta property="article:published_time" content="2023-08-02T07:32:03.834Z">
+<meta property="article:modified_time" content="2023-08-02T09:55:22.133Z">
+<meta property="article:author" content="TheWiseCirno">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cirnoblog.cn/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://cirnoblog.cn/2023/08/02/JWT/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Cirno\'s Blog',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-02 17:55:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Cirno's Blog"><span class="site-name">Cirno's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-02T07:32:03.834Z" title="发表于 2023-08-02 15:32:03">2023-08-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-02T09:55:22.133Z" title="更新于 2023-08-02 17:55:22">2023-08-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="什么是JWT"><a href="#什么是JWT" class="headerlink" title="什么是JWT"></a>什么是JWT</h3><blockquote>
+<p>JSON Web Token (JWT)是一个开放标准(RFC 7519) ，它定义了一种紧凑和自包含的方式，**<code>用于作为 JSON 对象在各方之间安全地传输信息</code>**。此信息可以进行验证和信任，因为它是经过数字签名的。JWT 可以使用机密(使用 HMAC 算法)或使用 RSA 或 ECDSA 的公钥&#x2F;私钥对进行签名。<br>虽然可以对 JWT 进行加密，以便在各方之间提供保密性，但是我们将关注已签名的Token。签名Token可以验证其中包含的声明的完整性，而加密Token可以向其他方隐藏这些声明。当使用公钥&#x2F;私钥对对令牌进行签名时，该签名还证明只有持有私钥的一方才是对其进行签名的一方( <strong><code>签名技术是保证传输的信息不被篡改,并不能保证信息传输的安全</code></strong> )。</p>
+</blockquote>
+<p><em><strong>说人话的话，JWT就是一个是基于<code>JSON</code>格式用于网络传输的令牌，通过这个令牌可以去服务器上获取资源，也可以说是客户端和服务器端安全传输信息的一个标准。</strong></em></p>
+<h3 id="BASE64"><a href="#BASE64" class="headerlink" title="BASE64"></a>BASE64</h3><p>Base64是一种二进制到文本的编码方式。如果要更具体一点的话，可以认为它是一种将 <code>byte</code>数组编码为字符串的方法，而且编码出的字符串只包含ASCII基础字符。</p>
+<p>例如字符串<code>ShuSheng007</code>对应的Base64为<code>U2h1U2hlbmcwMDc=</code>。其中那个<code>=</code>比较特殊，是填充符，这里仅作了解就好，不多做说明。</p>
+<p>值得注意的是Base64不是加密算法，其仅仅是一种编码方式，算法也是公开的，所以不能依赖它进行加密。</p>
+<p>编码和加密的区别：</p>
+<ul>
+<li><p><strong>编码是将一系列字符放入一种特殊格式以进行传输或存储的过程。</strong></p>
+</li>
+<li><p><strong>加密是将数据转换成密码的过程</strong>。</p>
+</li>
+</ul>
+<p>至于为什么这里会提到base64，因为jwt本质上就是一个用base64编码的字符串。</p>
+<h3 id="JWT的结构"><a href="#JWT的结构" class="headerlink" title="JWT的结构"></a>JWT的结构</h3><p>在其紧凑的形式中，JWT由以点(.)分隔的三个部分组成，它们是:</p>
+<ul>
+<li>Header（首部）</li>
+<li>Payload（负载）</li>
+<li>Signature（签名）</li>
+</ul>
+<p>类似于xxxx.xxxx.xxxx格式,真实情况如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</span><br></pre></td></tr></table></figure>
+
+<p>并且你可以通过官网<a target="_blank" rel="noopener" href="https://jwt.io/#debugger-io%E8%A7%A3%E6%9E%90%E5%87%BA%E4%B8%89%E9%83%A8%E5%88%86%E8%A1%A8%E7%A4%BA%E7%9A%84%E4%BF%A1%E6%81%AF">https://jwt.io/#debugger-io解析出三部分表示的信息</a>( <strong><code>可使用 JWT.io Debugger 来解码、验证和生成 JWT</code></strong> ):<br><img src="https://ucc.alicdn.com/images/user-upload-01/98d3fc61aa364cefa3ec866275569377.png" alt="在这里插入图片描述"></p>
+<h4 id="1-Header"><a href="#1-Header" class="headerlink" title="(1) Header"></a>(1) Header</h4><blockquote>
+<p>报头通常由两部分组成: Token的类型(即 JWT)和所使用的签名算法(如 HMAC SHA256或 RSA)。</p>
+</blockquote>
+<p>例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;,</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终这个 JSON 将由base64进行加密（该加密是可以对称解密的)，用于构成 JWT 的第一部分,eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9就是base64加密后的结果。</p>
+<p>在<code>JWT</code>规范文件中称这些<code>Header</code>为<code>JOSE Header</code>，<code>JOSE</code>的全称为<code>Javascript Object Signature Encryption</code>，也就是<code>Javascript</code>对象签名和加密框架，<code>JOSE Header</code>其实就是<code>Javascript</code>对象签名和加密的头部参数。**<code>JWS</code>中常用的<code>Header</code>**：</p>
+<table>
+<thead>
+<tr>
+<th align="center">简称</th>
+<th align="center">全称</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">alg</td>
+<td align="center">Algorithm</td>
+<td align="center">用于保护<code>JWS</code>的加解密算法</td>
+</tr>
+<tr>
+<td align="center">jku</td>
+<td align="center">JWK Set URL</td>
+<td align="center">一组<code>JSON</code>编码的公共密钥的<code>URL</code>，其中一个是用于对<code>JWS</code>进行数字签名的密钥</td>
+</tr>
+<tr>
+<td align="center">jwk</td>
+<td align="center">JSON Web Key</td>
+<td align="center">用于对<code>JWS</code>进行数字签名的密钥相对应的公共密钥</td>
+</tr>
+<tr>
+<td align="center">kid</td>
+<td align="center">Key ID</td>
+<td align="center">用于保护<code>JWS</code>进的密钥</td>
+</tr>
+<tr>
+<td align="center">x5u</td>
+<td align="center">X.509 URL</td>
+<td align="center"><code>X.509</code>相关</td>
+</tr>
+<tr>
+<td align="center">x5c</td>
+<td align="center">X.509 Certificate Chain</td>
+<td align="center"><code>X.509</code>相关</td>
+</tr>
+<tr>
+<td align="center">x5t</td>
+<td align="center">X.509 Certificate SHA-1 Thumbprin</td>
+<td align="center"><code>X.509</code>相关</td>
+</tr>
+<tr>
+<td align="center">x5t#S256</td>
+<td align="center">X.509 Certificate SHA-256 Thumbprint</td>
+<td align="center"><code>X.509</code>相关</td>
+</tr>
+<tr>
+<td align="center">typ</td>
+<td align="center">Type</td>
+<td align="center">类型，例如<code>JWT</code>、<code>JWS</code>或者<code>JWE</code>等等</td>
+</tr>
+<tr>
+<td align="center">cty</td>
+<td align="center">Content Type</td>
+<td align="center">内容类型，决定<code>payload</code>部分的<code>MediaType</code></td>
+</tr>
+</tbody></table>
+<h4 id="2-Payload"><a href="#2-Payload" class="headerlink" title="(2) Payload"></a>(2) Payload</h4><blockquote>
+<p>Token的第二部分是有效负载，其中包含声明。声明是关于实体(通常是用户)和其他数据的语句。有三种类型的声明: registered claims, public claims, and private claims。</p>
+</blockquote>
+<p>例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;sub&quot;: &quot;1234567890&quot;,// 注册声明</span><br><span class="line">  &quot;name&quot;: &quot;John Doe&quot;,// 公共声明</span><br><span class="line">  &quot;admin&quot;: true // 私有声明</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这部分的声明也会通过base64进行加密,最终形成JWT的第二部分eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ<br><strong>registered claims(注册声明)</strong></p>
+<blockquote>
+<p>这些是一组预定义的声明，它们 <strong><code>不是强制性的，而是推荐的</code></strong> ，以 <strong><code>提供一组有用的、可互操作的声明</code></strong> 。</p>
+</blockquote>
+<p><code>JWT</code>的核心作用就是保护<code>Claims</code>的完整性（或者数据加密），保证<code>JWT</code>传输的过程中<code>Claims</code>不被篡改（或者不被破解）。<code>Claims</code>在<code>JWT</code>原始内容中是一个<code>JSON</code>格式的字符串，其中单个<code>Claim</code>是<code>K-V</code>结构，作为<code>JsonNode</code>中的一个<code>field-value</code>，这里列出常用的规范中预定义好的<code>Claim</code>：</p>
+<table>
+<thead>
+<tr>
+<th align="center">简称</th>
+<th align="center">全称</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iss</td>
+<td align="center">Issuer</td>
+<td align="center">发行方</td>
+</tr>
+<tr>
+<td align="center">sub</td>
+<td align="center">Subject</td>
+<td align="center">主体</td>
+</tr>
+<tr>
+<td align="center">aud</td>
+<td align="center">Audience</td>
+<td align="center">（接收）目标方</td>
+</tr>
+<tr>
+<td align="center">exp</td>
+<td align="center">Expiration Time</td>
+<td align="center">过期时间</td>
+</tr>
+<tr>
+<td align="center">nbf</td>
+<td align="center">Not Before</td>
+<td align="center">早于该定义的时间的<code>JWT</code>不能被接受处理</td>
+</tr>
+<tr>
+<td align="center">iat</td>
+<td align="center">Issued At</td>
+<td align="center"><code>JWT</code>发行时的时间戳</td>
+</tr>
+<tr>
+<td align="center">jti</td>
+<td align="center">JWT ID</td>
+<td align="center"><code>JWT</code>的唯一标识</td>
+</tr>
+</tbody></table>
+<p><strong><code>注意:声明名称只有三个字符，因为 JWT 意味着是紧凑的。</code></strong></p>
+<p><strong>Public claims(公共的声明)</strong></p>
+<blockquote>
+<p>使用 JWT 的人可以随意定义这些声明( <strong><code>可以自己声明一些有效信息如用户的id,name等,但是不要设置一些敏感信息,如密码</code></strong> )。但是为了避免冲突，应该在 JWT注册表中定义它们，或者将它们定义为包含抗冲突名称空间的 URI。</p>
+</blockquote>
+<p><strong>Private claims(私人声明)</strong></p>
+<blockquote>
+<p>这些是创建用于在同意使用它们的各方之间共享信息的习惯声明，既不是注册声明，也不是公开声明( <strong><code>私人声明是提供者和消费者所共同定义的声明</code></strong> )。</p>
+</blockquote>
+<p><strong><code>注意:对于已签名的Token，这些信息虽然受到保护，不会被篡改，但任何人都可以阅读。除非加密，否则不要将机密信息放在 JWT 的有效负载或头元素中。</code></strong></p>
+<h4 id="3-Signature"><a href="#3-Signature" class="headerlink" title="(3) Signature"></a>(3) Signature</h4><blockquote>
+<p>要创建Signature，您必须获取编码的标头（header）、编码的有效载荷(payload)、secret、标头中指定的算法，并对其进行签名。</p>
+</blockquote>
+<p>例如，如果您想使用 HMAC SHA256算法，签名将按以下方式创建:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64UrlEncode(header) + &quot;.&quot; +base64UrlEncode(payload),</span><br><span class="line">  secret</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+
+<p>上面的JSON将会通过HMACSHA256算法结合secret进行加验签名(私钥加密)，其中header和payload将通过base64UrlEncode()方法进行base64加密然后通过字符串拼接 <strong><code>&quot;.&quot;</code></strong> 生成新字符串,最终生成JWT的第三部分SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</p>
+<p><strong><code>注意:secret是保存在服务器端的，jwt的签发生成也是在服务器端的，secret就是用来进行jwt的签发和验证，所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个secret, 那就意味着客户端是可以自我签发jwt了</code></strong></p>
+<h4 id="4-JWT的生成与解析"><a href="#4-JWT的生成与解析" class="headerlink" title="(4) JWT的生成与解析"></a>(4) JWT的生成与解析</h4><blockquote>
+<p>JWT输出是三个由点分隔的 Base64-URL 字符串，这些字符串可以在 HTML 和 HTTP 环境中轻松传递，同时与基于 XML 的标准(如 SAML)相比更加紧凑。</p>
+</blockquote>
+<p>下面显示了一个 JWT，该 JWT 对前一个头和有效负载进行了编码，并使用一个 secret 进行签名。</p>
+<p><img src="https://ucc.alicdn.com/images/user-upload-01/fe7a3884df1443329a1f35b2a7ae838c.png" alt="在这里插入图片描述"></p>
+<p>真实情况,一般是在请求头里加入Authorization，并加上Bearer标注最后是JWT(格式:Authorization: Bearer <strong><code>&lt;token&gt;</code></strong>)：</p>
+<p><img src="https://ucc.alicdn.com/images/user-upload-01/2aa1d619cd3c4dbcbc0c7eb587f678a1.png" alt="在这里插入图片描述"></p>
+<h4 id="5-总结"><a href="#5-总结" class="headerlink" title="(5) 总结"></a>(5) 总结</h4><p>第一部分是header, 是一个json字符串, 描述了自己是什么和生成的算法。这一串字符是经过base64编码后的结果。</p>
+<p>第二部分是 payload, 翻译过来就是负载，简而言之也就是令牌token的内容，其内部的字段是可以自定义的。</p>
+<p>第三部分是签名。所谓签名, 就是对第二部分的payload进行取哈希值。由于哈希函数具有 单向性和 很强的方碰撞性，所以可以防止有人串改第二部分的 payload。</p>
+<p>当接受jwt的一方需要对签名进行验证, 这个过程叫做验签。只有经过验签的jwt才是有效和真实的。</p>
+<p>jwt的签名和验签都需要密钥的参与，要不然谁都可以生成一个 jwt, 服务端无法确认 jwt 的真实性，也就无法使用了。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>一般是在请求头里加入Authorization，并加上Bearer标注：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">fetch</span>(<span class="string">&#x27;api/user/1&#x27;</span>, &#123;  <span class="attr">headers</span>: &#123;    <span class="string">&#x27;Authorization&#x27;</span>: <span class="string">&#x27;Bearer &#x27;</span> + token  &#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>服务端会验证token，如果验证通过就会返回相应的资源。</p>
+<h3 id="常见的签名和验签-算法"><a href="#常见的签名和验签-算法" class="headerlink" title="常见的签名和验签 算法"></a>常见的签名和验签 算法</h3><h4 id="对称式签名（验签）"><a href="#对称式签名（验签）" class="headerlink" title="对称式签名（验签）"></a>对称式签名（验签）</h4><p>对称式最常见的当属 HS256。简单来说, 签名过程 就是对 header,payload和密钥的拼接 进行一次取SHA256哈希值, 作为 jwt 的第三部分。 用公式来写, 就是这样:</p>
+<p>$signedString&#x3D;SHA256(header+payload+key)signedString &#x3D; SHA256(header+payload+key) signedString&#x3D;SHA256(header+payload+key)$</p>
+<p>验签过程需要拿到 密钥 key(提前约定好的), 根据 header 和 payload  计算SHA256哈希值，如果和 jwt 的第三部分一致, 说明 jwt 真实, 否则说明 jwt 被篡改。</p>
+<h4 id="非对称式签名-验签"><a href="#非对称式签名-验签" class="headerlink" title="非对称式签名(验签)"></a>非对称式签名(验签)</h4><p>非对称式最常见的当属 RS256。简单来说, 就是对  header 和 payload  计算SHA256哈希值, 随后对这个哈希值使用私钥进行加密。 用公式来写就是这样:</p>
+<p>$signedString&#x3D;SHA256(header+payload)signedString &#x3D; SHA256(header+payload )signedString&#x3D;SHA256(header+payload)cipherText&#x3D;RSAencrypt(signedString,privateKey)cipherText &#x3D;RSA_{encrypt}(signedString, privateKey)cipherText&#x3D;RSAencrypt(signedString,privateKey)$</p>
+<p>验签的时候使用公钥解密出 signedString, 再根据 header 和 payload  计算SHA256哈希值,  随后对这个哈希值和 jwt的部分进行比对。如果和 jwt 的第三部分一致, 说明 jwt 真实, 否则说明 jwt 被篡改。</p>
+<h4 id="HS256-与-RS256-区别"><a href="#HS256-与-RS256-区别" class="headerlink" title="HS256 与 RS256 区别"></a>HS256 与 RS256 区别</h4><p>HS256 需要双方严格保管密钥, 如果有一方泄露了密钥, 那么就可以伪造出 jwt. 而 RS256 签名的时候使用私钥, 验签的时候使用公钥，只要私钥不泄露, 那么jwt是不能被伪造的, 充其量只是公钥泄露, 谁都验证jwt而已。</p>
+<p><code>其实也就是对称加密和非对称加密的区别</code></p>
+<h3 id="jwt-go"><a href="#jwt-go" class="headerlink" title="jwt-go"></a>jwt-go</h3><h4 id="安装-jwt-go"><a href="#安装-jwt-go" class="headerlink" title="安装 jwt-go"></a>安装 jwt-go</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.<span class="property">com</span>/dgrijalva/jwt-go@latest</span><br></pre></td></tr></table></figure>
+
+<h4 id="生成token"><a href="#生成token" class="headerlink" title="生成token"></a>生成token</h4><p>使用 <code>jwt-go</code> 库生成<code> token</code>，我们需要定义需求（<code>claims</code>），也就是说我们需要通过 jwt 传输的数据。假如我们需要传输 ID 和 Username，我们可以定义 Claims 结构体，其中包含 ID 和 Username 字段，还有在 <code>jwt-go</code> 包预定义的 <code>jwt.StandardClaims</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Claims <span class="keyword">struct</span> &#123;</span><br><span class="line">	ID       <span class="type">int64</span></span><br><span class="line">	Username <span class="type">string</span></span><br><span class="line">	jwt.StandardClaims</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>jwt.StandardClaims</code> 包含的字段：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> StandardClaims <span class="keyword">struct</span> &#123;</span><br><span class="line">  Audience  <span class="type">string</span> <span class="string">`json:&quot;aud,omitempty&quot;`</span></span><br><span class="line">  ExpiresAt <span class="type">int64</span>  <span class="string">`json:&quot;exp,omitempty&quot;`</span></span><br><span class="line">  Id        <span class="type">string</span> <span class="string">`json:&quot;jti,omitempty&quot;`</span></span><br><span class="line">  IssuedAt  <span class="type">int64</span>  <span class="string">`json:&quot;iat,omitempty&quot;`</span></span><br><span class="line">  Issuer    <span class="type">string</span> <span class="string">`json:&quot;iss,omitempty&quot;`</span></span><br><span class="line">  NotBefore <span class="type">int64</span>  <span class="string">`json:&quot;nbf,omitempty&quot;`</span></span><br><span class="line">  Subject   <span class="type">string</span> <span class="string">`json:&quot;sub,omitempty&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>jwt.NewWithClaims</code> 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func jwt.<span class="title class_">NewWithClaims</span>(method jwt.<span class="property">SigningMethod</span>, claims jwt.<span class="property">Claims</span>) *jwt.<span class="property">Token</span></span><br></pre></td></tr></table></figure>
+
+<p><code>jwt.NewWithClaims</code> 方法根据 <code>Claims</code> 结构体创建 <code>Token</code> 示例。</p>
+<p>参数 1 是 jwt.SigningMethod，</p>
+<p>其中包含</p>
+<ul>
+<li><p><code>jwt.SigningMethodHS256</code>，</p>
+</li>
+<li><p><code>jwt.SigningMethodHS384</code>，</p>
+</li>
+<li><p><code>jwt.SigningMethodHS512</code></p>
+</li>
+</ul>
+<p>三种<code>crypto.Hash</code> 加密算法的方案。</p>
+<p>参数 2 是 Claims，包含自定义类型和 StandardClaim，StandardClaim 嵌入在自定义类型中，以方便对标准声明进行编码，解析和验证。</p>
+<p>SignedString 方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*jwt.Token)</span></span>.SignedString(key <span class="keyword">interface</span>&#123;&#125;) (<span class="type">string</span>, <span class="type">error</span>)</span><br></pre></td></tr></table></figure>
+
+<p>SignedString 方法根据传入的空接口类型参数 key，返回完整的签名令牌。</p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//claims.go</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> claims</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/dgrijalva/jwt-go&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Claims <span class="keyword">struct</span> &#123;</span><br><span class="line">	ID       <span class="type">int64</span></span><br><span class="line">	Username <span class="type">string</span></span><br><span class="line">	jwt.StandardClaims</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Token</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;github.com/dgrijalva/jwt-go&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// GenerateTokenString</span></span><br><span class="line"><span class="comment">// 获取CLAIMS结构体对应的token值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenerateTokenString</span><span class="params">(claims jwt.Claims)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="comment">//func NewWithClaims(method SigningMethod, claims Claims) *Token</span></span><br><span class="line">	<span class="comment">//参数解析：method表示加密方法，claims表示对应的claims结构体，后续跟着.SignedString([]byte(&quot;golang&quot;))，其中的参数其实是代表私钥</span></span><br><span class="line">	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]<span class="type">byte</span>(<span class="string">&quot;golang&quot;</span>))</span><br><span class="line">	<span class="keyword">return</span> token, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.go</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;GO_JWT/Token&quot;</span></span><br><span class="line">	<span class="string">&quot;GO_JWT/claims&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/dgrijalva/jwt-go&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	TokenString, err := Token.GenerateTokenString(claims.Claims&#123;</span><br><span class="line">		ID:             <span class="number">1</span>,</span><br><span class="line">		Username:       <span class="string">&quot;Tom&quot;</span>,</span><br><span class="line">		StandardClaims: jwt.StandardClaims&#123;&#125;,</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%v&quot;</span>, TokenString)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVXNlcm5hbWUiOiJUb20ifQ.2rzyQl4GG3DSXC7BbNKgClh0iMYA2dIz7c35hoTxhcQ</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="解析token"><a href="#解析token" class="headerlink" title="解析token"></a>解析token</h4><p>使用 jwt-go 库解析 token，主要用到两个方法，分别用通过与解析传入的 token 字符串，和根据 <code>MyCustomClaims</code> 结构体定义的相关属性要求进行校验。</p>
+<p><code>jwt.ParseWithClaims</code> 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func jwt.<span class="title class_">ParseWithClaims</span>(tokenString string, claims jwt.<span class="property">Claims</span>, keyFunc jwt.<span class="property">Keyfunc</span>) (*jwt.<span class="property">Token</span>, error)</span><br></pre></td></tr></table></figure>
+
+<p><code>jwt.ParseWithClaims</code> 方法用于解析鉴权的声明，返回 &#96;*jwt.Token。</p>
+<p><code>Valid</code> 方法用于校验鉴权的声明。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ParseToken.go</span></span><br><span class="line"><span class="keyword">package</span> Token</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;GO_JWT/claims&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/dgrijalva/jwt-go&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ParseTokenString</span></span><br><span class="line"><span class="comment">// 解析Token字符串，将其转换为claims结构体对象</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ParseTokenString</span><span class="params">(tokenString <span class="type">string</span>)</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="comment">//func jwt.ParseWithClaims(tokenString string, claims jwt.Claims, keyFunc jwt.Keyfunc) (*jwt.Token, error)</span></span><br><span class="line">	<span class="comment">//参数解析：tokenString token字符串，claims 目标结构体对象，keyFunc表示通过这个token返回私钥</span></span><br><span class="line">	tokenClaims, err := jwt.ParseWithClaims(tokenString, &amp;claims.Claims&#123;&#125;, <span class="function"><span class="keyword">func</span><span class="params">(token *jwt.Token)</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> []<span class="type">byte</span>(<span class="string">&quot;golang&quot;</span>), <span class="literal">nil</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> tokenClaims != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> value, ok := tokenClaims.Claims.(*claims.Claims); ok &amp;&amp; tokenClaims.Valid &#123;</span><br><span class="line">			<span class="keyword">return</span> value, <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;GO_JWT/Token&quot;</span></span><br><span class="line">	<span class="string">&quot;GO_JWT/claims&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/dgrijalva/jwt-go&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	TokenString, err := Token.GenerateTokenString(claims.Claims&#123;</span><br><span class="line">		ID:             <span class="number">1</span>,</span><br><span class="line">		Username:       <span class="string">&quot;Tom&quot;</span>,</span><br><span class="line">		StandardClaims: jwt.StandardClaims&#123;&#125;,</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, TokenString)</span><br><span class="line"></span><br><span class="line">	value, err := Token.ParseTokenString(TokenString)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%#v&quot;</span>, value)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//output:</span></span><br><span class="line"><span class="comment">//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVXNlcm5hbWUiOiJUb20ifQ.2rzyQl4GG3DSXC7BbNKgClh0iMYA2dIz7c35hoTxhcQ</span></span><br><span class="line"><span class="comment">//&amp;claims.Claims&#123;ID:1, Username:&quot;Tom&quot;, StandardClaims:jwt.StandardClaims&#123;Audience:&quot;&quot;, ExpiresAt:0, Id:&quot;&quot;, IssuedAt:0, Issuer:&quot;&quot;, NotBefore:0, Subject:&quot;&quot;&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://cirnoblog.cn">TheWiseCirno</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://cirnoblog.cn/2023/08/02/JWT/">http://cirnoblog.cn/2023/08/02/JWT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://cirnoblog.cn" target="_blank">Cirno's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/08/01/gRPC/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">TheWiseCirno</div><div class="author-info__description">你说得对，但是...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/thewisecirno" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFJWT"><span class="toc-number">1.</span> <span class="toc-text">什么是JWT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BASE64"><span class="toc-number">2.</span> <span class="toc-text">BASE64</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JWT%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">JWT的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Header"><span class="toc-number">3.1.</span> <span class="toc-text">(1) Header</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Payload"><span class="toc-number">3.2.</span> <span class="toc-text">(2) Payload</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Signature"><span class="toc-number">3.3.</span> <span class="toc-text">(3) Signature</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-JWT%E7%9A%84%E7%94%9F%E6%88%90%E4%B8%8E%E8%A7%A3%E6%9E%90"><span class="toc-number">3.4.</span> <span class="toc-text">(4) JWT的生成与解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93"><span class="toc-number">3.5.</span> <span class="toc-text">(5) 总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AD%BE%E5%90%8D%E5%92%8C%E9%AA%8C%E7%AD%BE-%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">常见的签名和验签 算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%BC%8F%E7%AD%BE%E5%90%8D%EF%BC%88%E9%AA%8C%E7%AD%BE%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">对称式签名（验签）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%BC%8F%E7%AD%BE%E5%90%8D-%E9%AA%8C%E7%AD%BE"><span class="toc-number">5.2.</span> <span class="toc-text">非对称式签名(验签)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HS256-%E4%B8%8E-RS256-%E5%8C%BA%E5%88%AB"><span class="toc-number">5.3.</span> <span class="toc-text">HS256 与 RS256 区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jwt-go"><span class="toc-number">6.</span> <span class="toc-text">jwt-go</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-jwt-go"><span class="toc-number">6.1.</span> <span class="toc-text">安装 jwt-go</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90token"><span class="toc-number">6.2.</span> <span class="toc-text">生成token</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">6.2.1.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90token"><span class="toc-number">6.3.</span> <span class="toc-text">解析token</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/02/JWT/" title="无题">无题</a><time datetime="2023-08-02T07:32:03.834Z" title="发表于 2023-08-02 15:32:03">2023-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/01/gRPC/" title="无题">无题</a><time datetime="2023-08-01T14:56:37.092Z" title="发表于 2023-08-01 22:56:37">2023-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/01/%E7%BD%91%E5%85%B3/" title="无题">无题</a><time datetime="2023-08-01T14:19:00.495Z" title="发表于 2023-08-01 22:19:00">2023-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/01/HTTP/" title="无题">无题</a><time datetime="2023-08-01T07:46:12.503Z" title="发表于 2023-08-01 15:46:12">2023-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/30/RPC/" title="无题">无题</a><time datetime="2023-07-30T06:58:01.165Z" title="发表于 2023-07-30 14:58:01">2023-07-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By TheWiseCirno</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
